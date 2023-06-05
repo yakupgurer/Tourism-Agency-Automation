@@ -36,33 +36,38 @@
             this.plakalar = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnGetLocation
             // 
-            this.BtnGetLocation.Location = new System.Drawing.Point(613, 335);
+            this.BtnGetLocation.BackColor = System.Drawing.Color.LimeGreen;
+            this.BtnGetLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnGetLocation.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.BtnGetLocation.ForeColor = System.Drawing.Color.White;
+            this.BtnGetLocation.Location = new System.Drawing.Point(739, 354);
             this.BtnGetLocation.Name = "BtnGetLocation";
-            this.BtnGetLocation.Size = new System.Drawing.Size(100, 32);
+            this.BtnGetLocation.Size = new System.Drawing.Size(99, 39);
             this.BtnGetLocation.TabIndex = 0;
             this.BtnGetLocation.Text = "Veri Yükle";
-            this.BtnGetLocation.UseVisualStyleBackColor = true;
+            this.BtnGetLocation.UseVisualStyleBackColor = false;
             this.BtnGetLocation.Click += new System.EventHandler(this.BtnGetLocation_Click);
             // 
             // textBox1
             // 
             this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(583, 169);
+            this.textBox1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.textBox1.Location = new System.Drawing.Point(709, 188);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(113, 20);
+            this.textBox1.Size = new System.Drawing.Size(113, 21);
             this.textBox1.TabIndex = 1;
             // 
             // textBox2
             // 
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(583, 211);
+            this.textBox2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.textBox2.Location = new System.Drawing.Point(709, 230);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(113, 20);
+            this.textBox2.Size = new System.Drawing.Size(113, 21);
             this.textBox2.TabIndex = 2;
             // 
             // mapG
@@ -87,7 +92,7 @@
             this.mapG.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.mapG.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.mapG.ShowTileGridLines = false;
-            this.mapG.Size = new System.Drawing.Size(524, 426);
+            this.mapG.Size = new System.Drawing.Size(643, 535);
             this.mapG.TabIndex = 3;
             this.mapG.Zoom = 0D;
             this.mapG.Load += new System.EventHandler(this.mapG_Load);
@@ -95,18 +100,20 @@
             // plakalar
             // 
             this.plakalar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.plakalar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.plakalar.FormattingEnabled = true;
-            this.plakalar.Location = new System.Drawing.Point(583, 294);
+            this.plakalar.Location = new System.Drawing.Point(709, 313);
             this.plakalar.Name = "plakalar";
-            this.plakalar.Size = new System.Drawing.Size(169, 21);
+            this.plakalar.Size = new System.Drawing.Size(169, 24);
             this.plakalar.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(580, 260);
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label1.Location = new System.Drawing.Point(706, 279);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 13);
+            this.label1.Size = new System.Drawing.Size(90, 16);
             this.label1.TabIndex = 5;
             this.label1.Text = "Otobüs Seçiniz:";
             // 
@@ -115,22 +122,12 @@
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(623, 73);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(90, 43);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Ana Ekran";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // aracTakip
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(904, 559);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.plakalar);
             this.Controls.Add(this.mapG);
@@ -138,7 +135,8 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.BtnGetLocation);
             this.Name = "aracTakip";
-            this.Text = "aracTakip";
+            this.Text = "Araç Takip Sistemi";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.aracTakip_FormClosing);
             this.Load += new System.EventHandler(this.aracTakip_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -154,6 +152,5 @@
         private System.Windows.Forms.ComboBox plakalar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button button1;
     }
 }

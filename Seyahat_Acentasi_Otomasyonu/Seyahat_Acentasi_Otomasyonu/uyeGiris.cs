@@ -31,9 +31,9 @@ namespace Seyahat_Acentasi_Otomasyonu
        
         private void uyeGiris_Load(object sender, EventArgs e)
         {
-            
-            
-            
+            con = new SqlConnection("Data Source=DESKTOP-T4D8TPN\\SQLEXPRESS01;Initial Catalog=SeyahatAcenteOtomasyonuDB;Integrated Security=True");
+
+
         }
         private string HashPassword(string password) // Şifrenin hash değerini hesaplayan fonksiyon
         {
@@ -54,7 +54,7 @@ namespace Seyahat_Acentasi_Otomasyonu
             string user = textBox1.Text;
             string password = textBox2.Text;
             string hashedPassword = HashPassword(password); // Girilen şifrenin hash değerini al
-            con = new SqlConnection("Data Source=DESKTOP-T4D8TPN\\SQLEXPRESS01;Initial Catalog=SeyahatAcenteOtomasyonuDB;Integrated Security=True");
+            
             com = new SqlCommand();
             con.Open();
             com.Connection = con;
@@ -63,7 +63,7 @@ namespace Seyahat_Acentasi_Otomasyonu
             if (dr.Read())
             {
                 MessageBox.Show("Tebrikler Giriş Başarılı");
-                KullaniciID = Convert.ToInt32(dr["id"]); // Kullanıcının ID'sini değişkene atayın
+                KullaniciID = Convert.ToInt32(dr["id"]); // user id degiskene atama
                 con.Close();
                 string sorgu2 = "INSERT INTO degisiklikler(islemTuru,islemBolumu,islemTarihi,userid) VALUES('Uye Girisi',@bolum,@tarih,@userid)";
                 com = new SqlCommand(sorgu2, con);
@@ -73,15 +73,22 @@ namespace Seyahat_Acentasi_Otomasyonu
                 con.Open();
                 com.ExecuteNonQuery();
                 con.Close();
-                
 
+                
                 uyefrm.Show();
                 this.Hide();
             }
             else
             {
                 MessageBox.Show("Hatalı Kullanıcı Adı veya Şifre");
+                con.Close();
             }
+
+        }
+
+        private void uyeGiris_FormClosing(object sender, FormClosingEventArgs e)
+        {
+           
         }
     }
 

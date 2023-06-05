@@ -65,7 +65,7 @@ namespace Seyahat_Acentasi_Otomasyonu
 
         private void personeller_Load(object sender, EventArgs e)
         {
-
+            
         }
 
 
@@ -82,6 +82,7 @@ namespace Seyahat_Acentasi_Otomasyonu
             personelDogumTarihi.Text = personelGrid.CurrentRow.Cells[3].Value.ToString();
             personelPosition.Text = personelGrid.CurrentRow.Cells[4].Value.ToString();
             personelmaas.Text = personelGrid.CurrentRow.Cells[5].Value.ToString();
+            personelMail.Text = personelGrid.CurrentRow.Cells[6].Value.ToString();
 
         }
 
@@ -96,13 +97,14 @@ namespace Seyahat_Acentasi_Otomasyonu
             if (ekleme == DialogResult.Yes)
             {
 
-                string sorgu = "INSERT INTO person(personelAdi,personelSoyadi,personelDogumTarihi,personelPozisyon,personelMaas) VALUES (@ad,@soyad,@dtarih,@pozisyon,@maas)";
+                string sorgu = "INSERT INTO person(personelAdi,personelSoyadi,personelDogumTarihi,personelPozisyon,personelMaas,personelMail) VALUES (@ad,@soyad,@dtarih,@pozisyon,@maas,@personelmail)";
                 komut = new SqlCommand(sorgu, con);
                 komut.Parameters.AddWithValue("@ad", personelAd.Text);
                 komut.Parameters.AddWithValue("@soyad", personelSoyad.Text);
                 komut.Parameters.AddWithValue("@dtarih", personelDogumTarihi.Value);
                 komut.Parameters.AddWithValue("@maas", personelmaas.Text);
                 komut.Parameters.AddWithValue("@pozisyon", personelPosition.Text);
+                komut.Parameters.AddWithValue("@personelmail", personelMail.Text);
                 con.Open();
                 komut.ExecuteNonQuery();
                 con.Close();
@@ -111,7 +113,7 @@ namespace Seyahat_Acentasi_Otomasyonu
                 komut = new SqlCommand(sorgu2, con);
                 komut.Parameters.AddWithValue("@tarih", DateTime.Now);
                 komut.Parameters.AddWithValue("userid", uyeGiris.KullaniciID);
-                komut.Parameters.AddWithValue("@bolum", "Personeller:  " + personelAd.Text +" "+ personelSoyad.Text+" "+personelPosition.Text);
+                komut.Parameters.AddWithValue("@bolum", "Personeller:  " + personelAd.Text +" "+ personelSoyad.Text+" "+personelPosition.Text + " "+personelmaas.Text+" "+personelMail.Text+" "+personelDogumTarihi.Text);
                 con.Open();
                 komut.ExecuteNonQuery();
                 con.Close();
@@ -137,7 +139,7 @@ namespace Seyahat_Acentasi_Otomasyonu
                 komut = new SqlCommand(sorgu2, con);
                 komut.Parameters.AddWithValue("@tarih", DateTime.Now);
                 komut.Parameters.AddWithValue("userid", uyeGiris.KullaniciID);
-                komut.Parameters.AddWithValue("@bolum", "Personeller:  " + personelAd.Text + " " + personelSoyad.Text + " " + personelPosition.Text);
+                komut.Parameters.AddWithValue("@bolum", "Personeller:  " + personelAd.Text + " " + personelSoyad.Text + " " + personelPosition.Text + " " + personelmaas.Text + " " + personelMail.Text + " " + personelDogumTarihi.Text);
                 con.Open();
                 komut.ExecuteNonQuery();
                 con.Close();
@@ -151,7 +153,7 @@ namespace Seyahat_Acentasi_Otomasyonu
             DialogResult silme = MessageBox.Show("Seçili kayıt veritabanında güncellenecektir.Emin misiniz ?", "Kayıt Güncelleme", MessageBoxButtons.YesNo);
             if (silme == DialogResult.Yes)
             {
-                string sorgu = "UPDATE person SET personelAdi=@ad,personelSoyadi=@soyad,personelDogumTarihi=@dt,personelPozisyon=@pozisyon,personelMaas=@maas WHERE id=@id";
+                string sorgu = "UPDATE person SET personelAdi=@ad,personelSoyadi=@soyad,personelDogumTarihi=@dt,personelPozisyon=@pozisyon,personelMaas=@maas,personelMail=@personelmail WHERE id=@id";
                 komut = new SqlCommand(sorgu, con);
                 komut.Parameters.AddWithValue("@id", Convert.ToInt32(personel_id.Text));
                 komut.Parameters.AddWithValue("@ad", personelAd.Text);
@@ -159,6 +161,7 @@ namespace Seyahat_Acentasi_Otomasyonu
                 komut.Parameters.AddWithValue("@dt", personelDogumTarihi.Value);
                 komut.Parameters.AddWithValue("@maas", personelmaas.Text);
                 komut.Parameters.AddWithValue("@pozisyon", personelPosition.Text);
+                komut.Parameters.AddWithValue("@personelmail", personelMail.Text);
                 con.Open();
                 komut.ExecuteNonQuery();
                 con.Close();
@@ -167,7 +170,7 @@ namespace Seyahat_Acentasi_Otomasyonu
                 komut = new SqlCommand(sorgu2, con);
                 komut.Parameters.AddWithValue("@tarih", DateTime.Now);
                 komut.Parameters.AddWithValue("userid", uyeGiris.KullaniciID);
-                komut.Parameters.AddWithValue("@bolum", "Personeller:  " + personelAd.Text + " " + personelSoyad.Text + " " + personelPosition.Text);
+                komut.Parameters.AddWithValue("@bolum", "Personeller:  " + personelAd.Text + " " + personelSoyad.Text + " " + personelPosition.Text + " " + personelmaas.Text + " " + personelMail.Text + " " + personelDogumTarihi.Text);
                 con.Open();
                 komut.ExecuteNonQuery();
                 con.Close();
@@ -176,6 +179,25 @@ namespace Seyahat_Acentasi_Otomasyonu
             }
 
 
+        }
+
+        private void personeller_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
+
+        private void personelmaas_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // If you want, you can allow decimal (float) numbers
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

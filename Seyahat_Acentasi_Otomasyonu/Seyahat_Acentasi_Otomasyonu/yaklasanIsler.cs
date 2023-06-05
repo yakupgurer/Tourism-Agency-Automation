@@ -20,12 +20,13 @@ namespace Seyahat_Acentasi_Otomasyonu
         public yaklasanIsler()
         {
             InitializeComponent();
+            con = new SqlConnection("Data Source=DESKTOP-T4D8TPN\\SQLEXPRESS01;Initial Catalog=SeyahatAcenteOtomasyonuDB;Integrated Security=True");
         }
 
         void veriyukle()
         {
 
-            con = new SqlConnection("Data Source=DESKTOP-T4D8TPN\\SQLEXPRESS01;Initial Catalog=SeyahatAcenteOtomasyonuDB;Integrated Security=True");
+            
             con.Open();
             da = new SqlDataAdapter("select * from yapilacakisler", con);
             DataTable tablo = new DataTable();
@@ -168,6 +169,11 @@ namespace Seyahat_Acentasi_Otomasyonu
             anaEkran home = new anaEkran();
             this.Hide();
             home.Show();
+        }
+
+        private void yaklasanIsler_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
         }
     }
     }

@@ -170,5 +170,10 @@ using System.Data.SqlClient;
             this.Hide();
             home.Show();
         }
+
+        private void aracTakip_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
     }
     }

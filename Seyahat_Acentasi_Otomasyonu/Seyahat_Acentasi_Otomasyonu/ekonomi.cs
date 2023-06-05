@@ -23,7 +23,7 @@ namespace Seyahat_Acentasi_Otomasyonu
 
         void veriyukle()
         {
-            con = new SqlConnection("Data Source=DESKTOP-T4D8TPN\\SQLEXPRESS01;Initial Catalog=SeyahatAcenteOtomasyonuDB;Integrated Security=True");
+            
             con.Open();
             da = new SqlDataAdapter("SELECT * FROM gelirgider", con);
             DataTable tablo = new DataTable();
@@ -34,6 +34,7 @@ namespace Seyahat_Acentasi_Otomasyonu
         }
         private void ekonomi_Load(object sender, EventArgs e)
         {
+            con = new SqlConnection("Data Source=DESKTOP-T4D8TPN\\SQLEXPRESS01;Initial Catalog=SeyahatAcenteOtomasyonuDB;Integrated Security=True");
             veriyukle();
         }
 
@@ -133,6 +134,39 @@ namespace Seyahat_Acentasi_Otomasyonu
             anaEkran home = new anaEkran();
             this.Hide();
             home.Show();
+        }
+
+        private void ekonomi_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
+
+        private void textGelir_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // If you want, you can allow decimal (float) numbers
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textGider_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // If you want, you can allow decimal (float) numbers
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Seyahat_Acentasi_Otomasyonu
 
         void veriYukle()
         {
-            con = new SqlConnection("Data Source=DESKTOP-T4D8TPN\\SQLEXPRESS01;Initial Catalog=SeyahatAcenteOtomasyonuDB;Integrated Security=True");
+            
             con.Open();
             da = new SqlDataAdapter("select * from degisiklikler ORDER BY id DESC", con);
             DataTable tablo = new DataTable();
@@ -35,6 +35,7 @@ namespace Seyahat_Acentasi_Otomasyonu
         }
         private void guvenlik_Load(object sender, EventArgs e)
         {
+            con = new SqlConnection("Data Source=DESKTOP-T4D8TPN\\SQLEXPRESS01;Initial Catalog=SeyahatAcenteOtomasyonuDB;Integrated Security=True");
             veriYukle();
             //uyeGiris.KullaniciID;
         }
@@ -50,6 +51,8 @@ namespace Seyahat_Acentasi_Otomasyonu
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            
             DialogResult ekleme = MessageBox.Show("Seçili kayıt şüpheli olarak bildirilecektir.Emin misiniz ?", "Şüpheli Kayıt Bildirme", MessageBoxButtons.YesNo);
             if (ekleme == DialogResult.Yes)
             {
@@ -84,6 +87,11 @@ namespace Seyahat_Acentasi_Otomasyonu
             this.Hide();
             home.Show();
 
+        }
+
+        private void guvenlik_FormClosing(object sender, FormClosingEventArgs e)
+        {
+           
         }
     }
 }

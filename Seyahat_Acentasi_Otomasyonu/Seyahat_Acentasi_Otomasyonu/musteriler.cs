@@ -26,7 +26,7 @@ namespace Seyahat_Acentasi_Otomasyonu
         void veriyukle()
         {
             
-            con = new SqlConnection("Data Source=DESKTOP-T4D8TPN\\SQLEXPRESS01;Initial Catalog=SeyahatAcenteOtomasyonuDB;Integrated Security=True");
+            
             con.Open();
             da = new SqlDataAdapter("select * from seferMusteri", con);
             DataTable tablo = new DataTable();
@@ -87,6 +87,7 @@ namespace Seyahat_Acentasi_Otomasyonu
         }
         private void musteriler_Load(object sender, EventArgs e)
         {
+            con = new SqlConnection("Data Source=DESKTOP-T4D8TPN\\SQLEXPRESS01;Initial Catalog=SeyahatAcenteOtomasyonuDB;Integrated Security=True");
             veriyukle();
             seferidAl();
             
@@ -303,6 +304,11 @@ namespace Seyahat_Acentasi_Otomasyonu
             anaEkran home = new anaEkran();
             this.Hide();
             home.Show();
+        }
+
+        private void musteriler_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
         }
     }
     }

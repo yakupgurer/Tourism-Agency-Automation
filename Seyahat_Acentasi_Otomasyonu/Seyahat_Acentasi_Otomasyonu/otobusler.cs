@@ -22,7 +22,7 @@ namespace Seyahat_Acentasi_Otomasyonu
 
         void veriYukle()
         {
-            con = new SqlConnection("Data Source=DESKTOP-T4D8TPN\\SQLEXPRESS01;Initial Catalog=SeyahatAcenteOtomasyonuDB;Integrated Security=True");
+            
             komut = new SqlCommand("SELECT DISTINCT otobus.plaka FROM seferMusteri JOIN seferler ON seferMusteri.seferid = seferler.id JOIN otobus ON seferler.otobusid = otobus.id;");
             komut.Connection = con;
             komut.CommandType = CommandType.Text;
@@ -53,7 +53,7 @@ namespace Seyahat_Acentasi_Otomasyonu
         public otobusler()
         {
             InitializeComponent();
-            foreach (Control control in Controls)
+            foreach (Control control in Controls) // sağ tık için
             {
                 if (control is Button koltukButton)
                 {
@@ -62,37 +62,39 @@ namespace Seyahat_Acentasi_Otomasyonu
                     koltukButton.ContextMenuStrip.Items.Add("Müşteriyi Sil", null, OnMusteriSil);
                 }
             }
+            btnGetir.ContextMenuStrip = new ContextMenuStrip(); // getir butonu sağ tık devre dışı bırakmak için yeni nesne oluşturuyoruz...
         }
 
         private void otobusler_Load(object sender, EventArgs e)
         {
+            con = new SqlConnection("Data Source=DESKTOP-T4D8TPN\\SQLEXPRESS01;Initial Catalog=SeyahatAcenteOtomasyonuDB;Integrated Security=True");
             veriYukle();
         }
 
         private void btnGetir_Click(object sender, EventArgs e)
         {
-            // Koltuk düğmelerinin arkaplan rengini varsayılan olarak ayarlayın
+            // butonların arkaplan rengi ayarlama
             foreach (Control control in Controls)
             {
-                // Kontrol, bir düğme ise devam edin
+                // butonları belirleme
                 if (control is Button koltukButton)
                 {
-                    // Düğmenin arkaplan rengini beyaz olarak ayarla
+                    // butonların arkaplan rengini beyaz olarak ayarlama
                     koltukButton.BackColor = Color.White;
                 }
             }
+            btnGetir.BackColor = Color.LimeGreen; // getir buttonunun rengini korumak için
 
-            // ComboBox'lardan seçilen otobüs plakası ve şehir bilgisini alın
+            // ComboBox'lardan seçilen otobüs plakası ve şehir bilgisini alma
             string selectedPlaka = comboBox1.SelectedItem?.ToString();
             string selectedSehir = comboBox2.SelectedItem?.ToString();
 
-            // Her iki seçim de yapıldıysa devam edin
+            // Her iki seçim de yapıldıysa devam ...
             if (selectedPlaka != null && selectedSehir != null)
             {
-                // Veritabanı bağlantısı oluşturun
-                con = new SqlConnection("Data Source=DESKTOP-T4D8TPN\\SQLEXPRESS01;Initial Catalog=SeyahatAcenteOtomasyonuDB;Integrated Security=True");
+                
 
-                // Seçilen otobüs plakası ve şehir bilgisiyle müşterilerin koltuk bilgilerini almak için SQL sorgusu oluşturun
+                
                 string sorgu = "SELECT seferMusteri.musteriKoltukNo FROM seferMusteri " +
                                "JOIN seferler ON seferMusteri.seferid = seferler.id " +
                                "JOIN otobus ON seferler.otobusid = otobus.id " +
@@ -106,13 +108,13 @@ namespace Seyahat_Acentasi_Otomasyonu
                 con.Open();
                 dr = komut.ExecuteReader();
 
-                // Veritabanından okunan her bir kayıt için işlemleri gerçekleştirin
+                // dbden okunan her bir kayıt için işlemleri gerçekleştirme
                 while (dr.Read())
                 {
-                    // Koltuk numarasını okuyun
+                    // koltuk numarası alma
                     string koltukNo = dr["musteriKoltukNo"].ToString();
 
-                    // Koltuk düğmesini bulun ve arkaplan rengini kırmızı olarak ayarlayın
+                    // koltuk dugmesi bulma ve arkaplan rengini kırmızı olarak ayarlama
                     Control koltukButton = Controls.Find("button" + koltukNo, true).FirstOrDefault();
                     if (koltukButton is Button button)
                     {
@@ -127,7 +129,7 @@ namespace Seyahat_Acentasi_Otomasyonu
                     }
                 }
 
-                // Veritabanı bağlantısını kapatın
+                
                 con.Close();
             }
 
@@ -256,6 +258,21 @@ namespace Seyahat_Acentasi_Otomasyonu
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void otobusler_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
+
+        private void button32_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
         {
 
         }
